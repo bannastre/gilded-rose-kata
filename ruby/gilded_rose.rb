@@ -8,8 +8,12 @@ class GildedRose
     @items.each do |item|
       item.update_quality
 
-      item.quality > 50 ? item.quality = 50 : item.quality = item.quality
-      item.quality < 0 ? item.quality = 0 : item.quality = item.quality
+      case item.quality
+      when -Float::INFINITY..0
+        item.quality = 0
+      when 51..Float::INFINITY
+        item.quality = 50
+      end
     end
   end
 
@@ -68,9 +72,16 @@ class BackStagePass
   end
 
   def update_quality
-    @sell_in < 11 ? @quality += 1 : @quality
-    @sell_in < 6 ? @quality += 1 : @quality
-    @sell_in > 0 ? @quality += 1 : @quality = 0
+    case @sell_in
+    when 11..
+      @quality += 1
+    when 6..10
+      @quality += 1
+    when 1..5
+      @quality += 2
+    when -Float::INFINITY..0
+      @quality = 0
+    end
     @sell_in -= 1
   end
 end
