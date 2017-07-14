@@ -6,6 +6,7 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
+
       item.update_quality
 
       case item.quality
@@ -19,7 +20,7 @@ class GildedRose
 
 end
 
-class NormalItem
+class Item
   attr_accessor :name, :sell_in, :quality
 
   def initialize(name, sell_in, quality)
@@ -31,6 +32,10 @@ class NormalItem
   def update_quality
     @sell_in > 0 ? @quality -= 1 : @quality -= 2
     @sell_in -= 1
+  end
+
+  def to_s()
+    "#{@name}, #{@sell_in}, #{@quality}"
   end
 end
 
@@ -73,14 +78,14 @@ class BackStagePass
 
   def update_quality
     case @sell_in
-    when 11..
-      @quality += 1
-    when 6..10
-      @quality += 1
-    when 1..5
-      @quality += 2
     when -Float::INFINITY..0
       @quality = 0
+    when 1..5
+      @quality += 3
+    when 6..10
+      @quality += 2
+    when 11..Float::INFINITY
+      @quality += 1
     end
     @sell_in -= 1
   end

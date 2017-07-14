@@ -4,37 +4,32 @@ describe GildedRose do
 
   describe "#update_normal_quality" do
     it "does not change the name" do
-      # items = [Item.new("foo", 0, 0)]
-      items = [NormalItem.new('foo', 1, 50)]
+      items = [Item.new('foo', 1, 50)]
       GildedRose.new(items).update_quality()
       expect(items[0].name).to eq "foo"
     end
 
     it "reduces quality by 2 if sell_in == 0" do
-      # items = [Item.new("foo", 0, 50)]
-      items = [NormalItem.new('foo', 0, 50)]
+      items = [Item.new('foo', 0, 50)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 48
     end
 
     it "reduces quality by 1 if sell_in > 0" do
-      # items = [Item.new("foo", 1, 50)]
-      items = [NormalItem.new('foo', 1, 50)]
+      items = [Item.new('foo', 1, 50)]
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 49
     end
 
     it 'does not reduce quality below 0' do
-      # items = [Item.new("foo", 0, 1)]
-      items = [NormalItem.new('foo', 0, 1)]
+      items = [Item.new('foo', 0, 1)]
       GildedRose.new(items).update_quality()
       GildedRose.new(items).update_quality()
       expect(items[0].quality).to eq 0
     end
 
     it "reduces sell_in by 1" do
-      # items = [Item.new("foo", 1, 0)]
-      items = [NormalItem.new('foo', 1, 0)]
+      items = [Item.new('foo', 1, 0)]
       GildedRose.new(items).update_quality()
       expect(items[0].sell_in).to eq 0
     end
